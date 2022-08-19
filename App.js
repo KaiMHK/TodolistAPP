@@ -2,12 +2,14 @@ import React from "react";
 import {useState,useRef,useEffect} from "react";
 import TodoList from "./TodoList";
 import {v4 as uuidv4}from 'uuid';
+import "./index.css";
 
 const local = 'todoAPP.todos'
 
 function App() {
   const[todos,setTodos] = useState([])
   const todoNameRef = useRef()
+  //var uname = useRef()
 
   useEffect(()=>{
     const storedTodos = JSON.parse(localStorage.getItem(local))
@@ -40,13 +42,22 @@ function App() {
   }
 
   return (
-    <>
+    <div>
+      <h1 className="title">Hello </h1>
+      <input className="task" ref = {todoNameRef} type="text" style={{color:'black'}}/>
+      
+      <button className="btn" style={{backgroundColor:'red',color:'white',scale:'inherit'}} 
+        onClick = {handleAddTodo}>Add Todo</button>
+      <button className="btn" style={{backgroundColor:'green',color:'white'}} 
+        onClick= {handleClearTodo}
+        >Clear Todo</button>
+
       <TodoList todos={todos} toggleTodo = {toggleTodo} />
-      <input ref = {todoNameRef} type="text" />
-      <button onClick = {handleAddTodo}>Add Todo</button>
-      <button onClick= {handleClearTodo}>Clear Todo</button>
-      <div>{todos.filter(todo=>!todo.complete).length} </div>
-    </>
+      <div>Hi</div>
+      <div>You still need to do 
+        <span style = {{color:'red'}}> {todos.filter(todo=>!todo.complete).length} </span> 
+        things </div>
+    </div>
   )
 }
 
